@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI #自动化名称
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push: # push的时候触发
+    branches: # 那些分支需要触发
+      - master
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest  # 镜像市场
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: checkout # 步骤的名称
+        uses: actions/checkout@v1 #软件市场的名称
+        with: # 参数
+          submodules: true
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2.2.2
+        with:
+          hugo-version: '0.64.1'
+          extended: true
+      - name: Build
+        run: hugo -D
+      - name: Deploy to Github pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          BRANCH: gh-pages
+          FOLDER: ./public
+          CLEAN: true
