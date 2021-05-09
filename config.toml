@@ -1,4 +1,5 @@
-baseURL = "https://blog.abuqi.site"
+# baseURL = "https://blog.abuqi.site"
+baseURL = "https://abuqi.github.io/blog"
 languageCode = "zh-CN"
 title = "熊爸爸的随记"
 theme = "maupassant"
