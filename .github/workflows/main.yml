@@ -19,20 +19,19 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: checkout # 步骤的名称
-        uses: actions/checkout@v1 #软件市场的名称
+        uses: actions/checkout@v2 #软件市场的名称
         with: # 参数
           submodules: true
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2.2.2
+        uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.64.1'
-          extended: true
+          hugo-version: '0.81.0'
+          # extended: true
       - name: Build
-        run: hugo -D
+        run: hugo --minify
       - name: Deploy to Github pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          BRANCH: gh-pages
-          FOLDER: ./public
-          CLEAN: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
