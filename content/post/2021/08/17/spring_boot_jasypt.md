@@ -21,3 +21,10 @@ toc: true
   添加下面参数 
   -Djasypt.plugin.path="file:D:\Projects\xxxxx\application.yml"
 ```
+
+2. 加密密钥如果放入application.yml中, 还是有泄露的风险
+```
+  在Jar的启动参数中加入下面参数
+  -Djasypt.encryptor.password=加密密钥
+  
+```
